@@ -1,8 +1,23 @@
 import Header from '../components/Header';
 import CardPizza from '../components/CardPizza';
-import { pizzas } from '../data/pizzas';
+// import { pizzas } from '../data/pizzas';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const Home = () => {
+  const [pizzas, setPizzas] = useState([]);
+  async function consumirAPI() {
+    const respuesta = await axios.get("http://localhost:5000/API/pizzas")
+    const dataAPI = await respuesta.data
+    console.log(dataAPI)
+    setPizzas(dataAPI)
+  }
+
+  useEffect(() => {
+    consumirAPI()
+  }, [])
+  
+
   return (
     <div className="container my-4">
       <Header />
